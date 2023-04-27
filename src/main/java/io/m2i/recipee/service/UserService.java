@@ -1,12 +1,14 @@
 package io.m2i.recipee.service;
 
 import io.m2i.recipee.model.User;
+import io.m2i.recipee.dao.UserDAO;
+import io.m2i.recipee.dao.UserJdbcDAO;
 
 import java.util.List;
 
 public class UserService {
 
-    private UserDAO userDAO = new UserJdbcDAO();
+    private final UserDAO userDAO = new UserJdbcDAO();
 
     public List<User> findAllUsers() {
         return userDAO.findAll();

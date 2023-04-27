@@ -44,20 +44,22 @@
 
       </ul>
 
-      <c:choose>
-        <c:when test="${empty sessionScope.loggedUser}">
-            <a class="btn btn-success" href="${pageContext.request.contextPath}/login">Login</a>
-        </c:when>
+      <div class="d-flex">
+        <c:choose>
+          <c:when test="${empty sessionScope.loggedUser}">
+              <a class="btn btn-outline-success btn-sm m-1" href="${pageContext.request.contextPath}/login">Login</a>
+          </c:when>
 
-        <c:when test="${! empty sessionScope.loggedUser}">
-          <a class="btn btn-danger" href="${pageContext.request.contextPath}/random">Not so Random Recipe ?</a>
-          <a class="btn btn-danger" href="${pageContext.request.contextPath}/logout">Logout</a>
-        </c:when>
-      </c:choose>
+          <c:when test="${! empty sessionScope.loggedUser}">
+            <a class="btn btn-outline-info btn-sm m-1" href="${pageContext.request.contextPath}/random">Random</a>
+            <a class="btn btn-outline-danger btn-sm m-1" href="${pageContext.request.contextPath}/logout">Logout</a>
+          </c:when>
+        </c:choose>
+      </div>
 
-      <form class="d-flex" role="search" action="${pageContext.request.contextPath}/search" method="get">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+      <form class="d-flex m-2" role="search" action="${pageContext.request.contextPath}/search" method="get">
+        <input class="form-control me-2 form-control-sm" type="search" placeholder="Search" aria-label="Search" name="query">
+        <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
       </form>
 
     </div>

@@ -25,7 +25,7 @@
 
     <h1>Categories List</h1>
 
-    <c:if test="${empty sessionScope.loggedUser}">
+    <c:if test="${! empty sessionScope.loggedUser}">
         <a class="btn btn-success" role="button" href="/create-category">Create</a>
     </c:if>
 

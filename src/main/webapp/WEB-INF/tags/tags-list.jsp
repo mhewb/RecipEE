@@ -22,7 +22,7 @@
 
     <h1>Tags List</h1>
 
-    <c:if test="${empty sessionScope.loggedUser}">
+    <c:if test="${! empty sessionScope.loggedUser}">
         <a class="btn btn-success" role="button" href="/create-tag">Create</a>
     </c:if>
 

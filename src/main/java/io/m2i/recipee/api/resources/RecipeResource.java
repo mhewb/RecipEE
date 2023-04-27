@@ -1,5 +1,6 @@
 package io.m2i.recipee.api.resources;
 
+import io.m2i.recipee.api.dto.RecipeDTO;
 import io.m2i.recipee.model.Category;
 import io.m2i.recipee.model.Recipe;
 import io.m2i.recipee.service.CategoryService;

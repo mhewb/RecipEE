@@ -18,9 +18,7 @@
 
 <div class="container-md my-5 p-3">
 
-  <%--    ${!empty isLog ? '<p>You need to be logged!</p>' : ''}--%>
-
-    <h1>Recipes List</h1>
+    <h1>Recipe Creation</h1>
 
     <form action="${pageContext.request.contextPath}/create-recipe" method="post">
 
