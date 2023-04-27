@@ -17,10 +17,9 @@ public class TagService {
         return tagDAO.getById(id);
     }
 
-    //TODO : understand why it does not work ?
-//    public Tag getTagByName(String name) {
-//        return tagDAO.getByName(name);
-//    }
+    public Tag getTagByName(String name) {
+        return tagDAO.getByName(name);
+    }
 
     public Tag createTag(String name) {
         Tag tag = new Tag(name);

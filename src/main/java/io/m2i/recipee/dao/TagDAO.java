@@ -4,8 +4,7 @@ import io.m2i.recipee.model.Tag;
 
 public interface TagDAO extends GenericDAO<Tag, Long> {
 
-    //TODO: add func
-    //Tag findbyName(Tag tag);
+    Tag getByName(String name);
 
 
 }
