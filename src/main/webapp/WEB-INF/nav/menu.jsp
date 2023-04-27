@@ -50,6 +50,7 @@
         </c:when>
 
         <c:when test="${! empty sessionScope.loggedUser}">
+          <a class="btn btn-danger" href="${pageContext.request.contextPath}/random">Not so Random Recipe ?</a>
           <a class="btn btn-danger" href="${pageContext.request.contextPath}/logout">Logout</a>
         </c:when>
       </c:choose>

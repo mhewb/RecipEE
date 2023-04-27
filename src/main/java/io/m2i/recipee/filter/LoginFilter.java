@@ -22,7 +22,7 @@ public class LoginFilter extends HttpFilter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) resp;
         HttpSession session = httpServletRequest.getSession();
 
-        boolean loggedIn = session != null && session.getAttribute("user") != null;
+        boolean loggedIn = session != null && session.getAttribute("loggedUser") != null;
 
         // Public route accessible w/o connexion
         if (
