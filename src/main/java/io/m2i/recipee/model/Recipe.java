@@ -14,6 +14,7 @@ public class Recipe {
     private int cookingTime;
     private Category category;
     private List<Tag> tags;
+    private LocalDate lastCookedDate;
 
     public Recipe() {
     }
@@ -28,6 +29,7 @@ public class Recipe {
         this.cookingTime = cookingTime;
         this.category = category;
         this.tags = tags;
+        this.lastCookedDate = null;
     }
 
     public Recipe(String name, String ingredients, int preparationTime, String instructions,
@@ -39,6 +41,7 @@ public class Recipe {
         this.cookingTime = cookingTime;
         this.category = category;
         this.tags = tags;
+        this.lastCookedDate = null;
     }
 
     public RecipeDTO toDTO() {
@@ -52,6 +55,7 @@ public class Recipe {
         recipeDTO.setCookingTime(this.cookingTime);
         recipeDTO.setCategory(this.category);
         recipeDTO.setTags(this.tags);
+        recipeDTO.setLastCookedDate(this.lastCookedDate);
 
         return recipeDTO;
     }
@@ -123,6 +127,14 @@ public class Recipe {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public LocalDate getLastCookedDate() {
+        return lastCookedDate;
+    }
+
+    public void setLastCookedDate(LocalDate lastCookedDate) {
+        this.lastCookedDate = lastCookedDate;
     }
 
 }

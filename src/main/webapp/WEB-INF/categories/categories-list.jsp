@@ -25,8 +25,9 @@
 
     <h1>Categories List</h1>
 
-    <a class="btn btn-success"
-       role="button" href="/create-category">Create</a>
+    <c:if test="${empty sessionScope.loggedUser}">
+        <a class="btn btn-success" role="button" href="/create-category">Create</a>
+    </c:if>
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
 

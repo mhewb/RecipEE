@@ -16,6 +16,7 @@ public class RecipeDTO {
     private int cookingTime;
     private Category category;
     private List<Tag> tags;
+    private LocalDate lastCookedDate;
 
     public RecipeDTO() {
     }
@@ -83,4 +84,13 @@ public class RecipeDTO {
     public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
+
+    public LocalDate getLastCookedDate() {
+        return lastCookedDate;
+    }
+
+    public void setLastCookedDate(LocalDate lastCookedDate) {
+        this.lastCookedDate = lastCookedDate;
+    }
+
 }

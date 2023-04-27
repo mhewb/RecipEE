@@ -2,12 +2,12 @@ package io.m2i.recipee.servlet.users;
 
 import io.m2i.recipee.model.User;
 import io.m2i.recipee.service.UserService;
+import io.m2i.recipee.servlet.LandingPageServlet;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
         } else {
             User user = userService.getUserByEmail(email);
             req.getSession().setAttribute("loggedUser", user);
-            resp.sendRedirect(req.getContextPath() + "/");
+            resp.sendRedirect(LandingPageServlet.URL);
         }
 
     }
