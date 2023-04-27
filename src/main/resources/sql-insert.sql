@@ -17,4 +17,6 @@ INSERT INTO RecipeTags(idRecipes, idTags) VALUES (4, 1);
 SELECT r.name, r.ingredients, r.preparationTime, r.instructions, r.cookingTime, r.idCategory, rt.idRecipes FROM RecipeTags rt INNER JOIN Recipes r ON rt.idRecipes = r.id WHERE rt.idTags = 3;
 SELECT r.id, r.name, r.ingredients, r.preparationTime, r.instructions, r.cookingTime, c.id FROM Recipes r INNER JOIN Categories c on r.idCategory = c.id WHERE c.id = 1;
 
-SELECT idRecipes, idTags AS id FROM RecipeTags WHERE idRecipes = 1;
+SELECT t.name, rt.idRecipes, rt.idTags AS id  FROM RecipeTags rt JOIN Tags t WHERE idRecipes = 1;
+SELECT t.name, rt.idRecipes, rt.idTags AS id  FROM RecipeTags rt INNER JOIN Tags t ON t.id = rt.idTags WHERE idRecipes = 1;
+

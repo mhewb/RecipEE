@@ -39,6 +39,11 @@
 
                         <h5 class="card-title"> ${recipe.name} </h5>
 
+                        <p>Category: ${recipe.category.getName()}</p>
+                        <p>Tags: <c:forEach items="${recipe.tags}" var="tag">${tag.getName()}, </c:forEach></p>
+
+                        <p>Temps total : ${recipe.calculateTotalTime()} min.</p>
+
                         <a class="btn btn-primary btn-sm"
                            role="button" href="/edit-recipe?id=${recipe.id}">Edit</a>
 

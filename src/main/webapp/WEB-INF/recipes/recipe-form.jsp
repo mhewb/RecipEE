@@ -50,8 +50,6 @@
 
       </select>
 
-<%--      TODO: TAGS ! --%>
-
       <label for="preparationTime">Temps de préparation (en min)</label>
       <input type="text"
              id="preparationTime"

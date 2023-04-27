@@ -75,7 +75,7 @@ public class TagJdbcDAO implements TagDAO {
 
         RecipeDAO recipeDAO = new RecipeJdbcDAO();
         List<Tag> tagList = new ArrayList<>();
-        String sqlQuery = "SELECT t.name, rt.idRecipes, rt.idTags AS id  FROM RecipeTags rt INNER JOIN Tags t WHERE idRecipes = ?";
+        String sqlQuery = "SELECT t.name, rt.idRecipes, rt.idTags AS id  FROM RecipeTags rt INNER JOIN Tags t ON t.id = rt.idTags WHERE idRecipes = ?";
 
         try (PreparedStatement pst = con.prepareStatement(sqlQuery)) {
 
