@@ -149,7 +149,7 @@ public class TagJdbcDAO implements TagDAO {
             pst.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Could not update Tag id=" + entity.getId(), e);
         }
         return true;
     }
@@ -165,7 +165,7 @@ public class TagJdbcDAO implements TagDAO {
             pst.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException("Could not delete Tag.", e);
+            throw new RuntimeException("Could not delete Tag id=" + entity.getId(), e);
         }
         return true;
     }

@@ -39,7 +39,7 @@ public class TagCreateServlet extends HttpServlet {
             req.setAttribute("createError", "Error while creating tag");
         }
 
-        req.getRequestDispatcher(TagCreateServlet.JSP).forward(req, resp);
+        resp.sendRedirect(TagListServlet.URL);
 
     }
 }

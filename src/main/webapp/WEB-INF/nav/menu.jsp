@@ -40,14 +40,34 @@
           </ul>
         </li>
 
+          <%-- USERS--%>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Users
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users-list">Users List</a></li>
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/create-user">Create User</a></li>
+            </ul>
+          </li>
+
 
 
 
       </ul>
 
-      <span class="navbar-text">
-        ${empty username ? 'Not connected': username}
-      </span>
+      <p>${sessionScope.loggedUser.firstName}</p>
+
+
+      <c:choose>
+        <c:when test="${empty sessionScope.loggedUser}">
+            <a class="btn btn-success" href="${pageContext.request.contextPath}/login">Login</a>
+        </c:when>
+
+        <c:when test="${! empty sessionScope.loggedUser}">
+          <a class="btn btn-danger" href="${pageContext.request.contextPath}/logout">Logout</a>
+        </c:when>
+      </c:choose>
 
     </div>
   </div>

@@ -13,6 +13,7 @@ INSERT INTO RecipeTags(idRecipes, idTags) VALUES (3, 4);
 INSERT INTO Recipes(id, name, ingredients, preparationTime, instructions, cookingTime, idCategory) VALUES
     (4, 'Carottes rapées', 'ingrédients', 10, 'instructions', 0, 1);
 INSERT INTO RecipeTags(idRecipes, idTags) VALUES (4, 1);
+INSERT INTO Users(email, password, firstName, lastName, avatarURL) VALUES ('admin@recipee.io', 'admin', 'Ad', 'Min', ''), ('user@recipee.io', 'user', 'Jean', 'Michel', '');
 
 SELECT r.name, r.ingredients, r.preparationTime, r.instructions, r.cookingTime, r.idCategory, rt.idRecipes FROM RecipeTags rt INNER JOIN Recipes r ON rt.idRecipes = r.id WHERE rt.idTags = 3;
 SELECT r.id, r.name, r.ingredients, r.preparationTime, r.instructions, r.cookingTime, c.id FROM Recipes r INNER JOIN Categories c on r.idCategory = c.id WHERE c.id = 1;
