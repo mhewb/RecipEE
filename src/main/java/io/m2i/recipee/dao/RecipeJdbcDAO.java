@@ -4,6 +4,7 @@ import io.m2i.recipee.ConnectionManager;
 import io.m2i.recipee.model.Category;
 import io.m2i.recipee.model.Recipe;
 import io.m2i.recipee.model.Tag;
+import io.m2i.recipee.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RecipeJdbcDAO implements RecipeDAO {
@@ -29,13 +31,10 @@ public class RecipeJdbcDAO implements RecipeDAO {
         int cookingTime = rs.getInt("cookingTime");
         Long idCategory = rs.getLong("idCategory");
 
-        // TODO : LastCooked
-        LocalDate lastCooked = LocalDate.now();
-
         Category category = categoryDAO.getById(idCategory);
         List<Tag> tags = tagDAO.getTagsPerRecipeId(id);
 
-        return new Recipe(id, name, ingredients, preparationTime, instructions, cookingTime, category, tags, lastCooked);
+        return new Recipe(id, name, ingredients, preparationTime, instructions, cookingTime, category, tags);
     }
 
     @Override
@@ -258,6 +257,64 @@ public class RecipeJdbcDAO implements RecipeDAO {
             throw new RuntimeException("Could not delete Recipe.", e);
         }
         return true;
+    }
+
+    public List<Recipe> searchRecipe(String query) {
+
+        List<Recipe> recipeList = new ArrayList<>();
+        String sqlQuery =
+                "SELECT DISTINCT r.* " +
+                "FROM Categories c " +
+                "LEFT JOIN Recipes r ON c.id = r.idCategory " +
+                "LEFT JOIN RecipeTags rt ON r.id = rt.idRecipes " +
+                "LEFT JOIN Tags t ON rt.idTags = t.id " +
+                "WHERE c.name LIKE ? " +
+                "OR r.name LIKE ? " +
+                "OR t.name LIKE ?";
+
+        try (PreparedStatement pst = con.prepareStatement(sqlQuery)) {
+
+            String searchTerm = "%" + query + "%";
+
+            pst.setString(1, searchTerm);
+            pst.setString(2, searchTerm);
+            pst.setString(3, searchTerm);
+
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    Recipe recipe = mapToRecipe(rs);
+                    recipeList.add(recipe);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not find Recipe", e);
+        }
+        return recipeList;
+    }
+
+    public Recipe getRandomRecipeOlderThanXDays(User user, int days) {
+
+        String sqlQuery =
+                "SELECT r.id, r.name, r.ingredients, r.preparationTime, r.instructions, r.cookingTime, " +
+                "r.idCategory, ur.lastCooked, ur.idUser FROM Recipes r JOIN UserRecipe ur " +
+                "WHERE NOT EXISTS ( SELECT 1 FROM UserRecipe ur WHERE ur.idRecipes = r.id AND ur.idUser = ? "+
+                "AND ur.lastCooked >= DATE_SUB(CURDATE(), INTERVAL ? DAY) ) ORDER BY RAND() LIMIT 1";
+        Recipe recipeFound = null;
+
+        try (PreparedStatement pst = con.prepareStatement(sqlQuery)) {
+
+            pst.setLong(1, user.getId());
+            pst.setInt(2, days);
+
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    recipeFound = mapToRecipe(rs);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not find a recipe that was cooked less than " + days + " days ago by User id=" + user.getId(), e);
+        }
+        return recipeFound;
     }
 
 }

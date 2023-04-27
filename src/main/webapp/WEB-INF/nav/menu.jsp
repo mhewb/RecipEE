@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="${pageContext.request.contextPath}/">RecipEE</a>
@@ -40,24 +42,7 @@
           </ul>
         </li>
 
-          <%-- USERS--%>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Users
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/users-list">Users List</a></li>
-              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/create-user">Create User</a></li>
-            </ul>
-          </li>
-
-
-
-
       </ul>
-
-      <p>${sessionScope.loggedUser.firstName}</p>
-
 
       <c:choose>
         <c:when test="${empty sessionScope.loggedUser}">
@@ -68,6 +53,11 @@
           <a class="btn btn-danger" href="${pageContext.request.contextPath}/logout">Logout</a>
         </c:when>
       </c:choose>
+
+      <form class="d-flex" role="search" action="${pageContext.request.contextPath}/search" method="get">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
 
     </div>
   </div>

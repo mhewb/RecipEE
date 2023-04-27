@@ -1,14 +1,16 @@
 package io.m2i.recipee.dao;
 
 import io.m2i.recipee.ConnectionManager;
-import io.m2i.recipee.model.Tag;
+import io.m2i.recipee.model.Recipe;
 import io.m2i.recipee.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UserJdbcDAO implements UserDAO {
@@ -28,6 +30,7 @@ public class UserJdbcDAO implements UserDAO {
         return new User(id, email, password, firstName, lastName, avatarUrl);
 
     }
+
     @Override
     public User create(User entity) {
         String sqlQuery = "INSERT INTO Users(email, password, firstName, lastName, avatarURL) VALUES (?,?,?,?,?)";
@@ -45,7 +48,7 @@ public class UserJdbcDAO implements UserDAO {
             if (row == 1) {
                 ResultSet generatedKeys = pst.getGeneratedKeys();
                 if (generatedKeys.next()) {
-                    Long id = generatedKeys. getLong(1);
+                    Long id = generatedKeys.getLong(1);
                     entity.setId(id);
                 }
             }
@@ -124,7 +127,7 @@ public class UserJdbcDAO implements UserDAO {
                 "password = ?, " +
                 "firstName = ?, " +
                 "lastName = ?, " +
-                "avatarURL = ? "+
+                "avatarURL = ? " +
                 "WHERE id = ?";
 
         try (PreparedStatement pst = con.prepareStatement(sqlQuery)) {
@@ -158,4 +161,48 @@ public class UserJdbcDAO implements UserDAO {
         }
         return true;
     }
+
+    @Override
+    public Date getLastTimeRecipeCooked(User user, Recipe recipe) {
+
+        Date date = null;
+        String sqlQuery = "SELECT r.id, r.name, r.ingredients, r.preparationTime, r.instructions, r.cookingTime, r.idCategory, ur.lastCooked, ur.idUser FROM Recipes r JOIN UserRecipe ur WHERE r.id = ? AND ur.idUser = ?";
+
+        try (PreparedStatement pst = con.prepareStatement(sqlQuery)) {
+
+            pst.setLong(1, recipe.getId());
+            pst.setLong(2, user.getId());
+
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                date = rs.getDate("lastTimeCooked");
+            }
+
+        } catch (SQLException e) {
+            return null; // should not throw an error
+        }
+
+        return date;
+    }
+
+    @Override
+    public boolean updateLastTimeRecipeCooked(User user, Recipe recipe) {
+
+        String sqlQuery = "UPDATE UserRecipe SET lastCooked = DATE ? WHERE idUser = ? AND idRecipes = ?";
+
+        try (PreparedStatement pst = con.prepareStatement(sqlQuery)) {
+
+            pst.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
+            pst.setLong(2, user.getId());
+            pst.setLong(3, recipe.getId());
+
+            ResultSet rs = pst.executeQuery();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not update Date for Recipe id=" + recipe.getId(), e);
+        }
+
+        return true;
+    }
+
 }

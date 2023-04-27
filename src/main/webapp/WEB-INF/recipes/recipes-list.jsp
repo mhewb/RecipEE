@@ -25,10 +25,19 @@
 
     <h1>Recipes List</h1>
 
-    <a class="btn btn-success"
-       role="button" href="/create-recipe">Create</a>
+        <c:if test="${empty sessionScope.isLogged}">
+            <a class="btn btn-success" role="button" href="/create-recipe">Create</a>
+        </c:if>
+
+            <c:if test="${empty recipes}">
+                <p>No recipe found for : %${searchQurey}% </p>
+            </c:if>
+
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+
+
+
 
         <c:forEach var="recipe" items="${recipes}">
 
