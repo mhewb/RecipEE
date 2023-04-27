@@ -1,11 +1,8 @@
 package io.m2i.recipee.servlet;
 
-import io.m2i.recipee.dao.RecipeDAO;
-import io.m2i.recipee.dao.RecipeJdbcDAO;
-import io.m2i.recipee.dao.UserDAO;
-import io.m2i.recipee.dao.UserJdbcDAO;
 import io.m2i.recipee.model.Recipe;
 import io.m2i.recipee.model.User;
+import io.m2i.recipee.service.RecipeService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,7 +19,7 @@ public class RandomServlet extends HttpServlet {
 
     public static final String URL = "/random";
     private static final String JSP = "/WEB-INF/recipes/recipes-list.jsp";
-    final RecipeDAO recipeDAO = new RecipeJdbcDAO();
+    final RecipeService recipeService = new RecipeService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,7 +27,8 @@ public class RandomServlet extends HttpServlet {
         HttpSession session = req.getSession();
         User loggedUser = (User) session.getAttribute("loggedUser");
 
-        Recipe recipe = recipeDAO.getRandomRecipeOlderThanXDays(loggedUser,6);
+        Recipe recipe = recipeService.getRandomRecipeOlderThanXDays(loggedUser,6);
+        recipe.setLastCookedDate(recipeService.getLastTimeRecipeCooked(loggedUser, recipe));
         List<Recipe> listRecipe = new ArrayList<>();
         listRecipe.add(recipe);
 

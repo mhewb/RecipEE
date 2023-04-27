@@ -31,7 +31,7 @@ public class LoginFilter extends HttpFilter {
                         || httpServletRequest.getRequestURI().equals(httpServletRequest.getContextPath() + "/register")
                         || httpServletRequest.getRequestURI().equals(httpServletRequest.getContextPath() + "/search")
                         || httpServletRequest.getRequestURI().contains(httpServletRequest.getContextPath() + "/recipes-list")
-                        || httpServletRequest.getRequestURI().contains(httpServletRequest.getContextPath() + "/recipe-details")
+                        || httpServletRequest.getRequestURI().contains(httpServletRequest.getContextPath() + "/detail-recipe")
 
         ) {
             chain.doFilter(req, resp); // Les pages restent accessibles

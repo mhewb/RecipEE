@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class RecipeJdbcDAO implements RecipeDAO {
@@ -256,6 +255,49 @@ public class RecipeJdbcDAO implements RecipeDAO {
         } catch (SQLException e) {
             throw new RuntimeException("Could not delete Recipe.", e);
         }
+        return true;
+    }
+
+    @Override
+    public LocalDate getLastTimeRecipeCooked(User user, Recipe recipe) {
+
+        LocalDate date = null;
+        String sqlQuery = "SELECT lastCooked FROM UserRecipe WHERE idUser = ? AND idRecipes = ?;";
+
+        try (PreparedStatement pst = con.prepareStatement(sqlQuery)) {
+
+            pst.setLong(1, user.getId());
+            pst.setLong(2, recipe.getId());
+
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                date = rs.getDate("lastCooked").toLocalDate();
+            }
+
+        } catch (SQLException e) {
+            return null; // should not throw an error
+        }
+
+        return date;
+    }
+
+    @Override
+    public boolean updateLastTimeRecipeCooked(User user, Recipe recipe) {
+
+        String sqlQuery = "UPDATE UserRecipe SET lastCooked = DATE ? WHERE idUser = ? AND idRecipes = ?";
+
+        try (PreparedStatement pst = con.prepareStatement(sqlQuery)) {
+
+            pst.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
+            pst.setLong(2, user.getId());
+            pst.setLong(3, recipe.getId());
+
+            ResultSet rs = pst.executeQuery();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not update Date for Recipe id=" + recipe.getId(), e);
+        }
+
         return true;
     }
 

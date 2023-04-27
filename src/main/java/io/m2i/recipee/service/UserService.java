@@ -1,17 +1,14 @@
 package io.m2i.recipee.service;
 
+import io.m2i.recipee.model.User;
 import io.m2i.recipee.dao.UserDAO;
 import io.m2i.recipee.dao.UserJdbcDAO;
-import io.m2i.recipee.model.Recipe;
-import io.m2i.recipee.model.User;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 public class UserService {
 
-    private UserDAO userDAO = new UserJdbcDAO();
+    private final UserDAO userDAO = new UserJdbcDAO();
 
     public List<User> findAllUsers() {
         return userDAO.findAll();
@@ -60,14 +57,6 @@ public class UserService {
             return userFound.getPassword().equals(password);
         }
         return false;
-    }
-
-    public Date getLastTimeRecipeCooked(User user, Recipe recipe) {
-        return userDAO.getLastTimeRecipeCooked(user, recipe);
-    }
-
-    public boolean updateLastTimeRecipeCooked(User user, Recipe recipe) {
-        return userDAO.updateLastTimeRecipeCooked(user, recipe);
     }
 
 }

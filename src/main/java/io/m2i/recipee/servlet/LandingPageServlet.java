@@ -3,7 +3,6 @@ package io.m2i.recipee.servlet;
 import io.m2i.recipee.model.Recipe;
 import io.m2i.recipee.service.RecipeService;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,5 +1,6 @@
 package io.m2i.recipee.servlet.users;
 
+import io.m2i.recipee.servlet.LandingPageServlet;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,12 +14,12 @@ import java.io.IOException;
 public class LogoutServlet extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession session = req.getSession();
         session.invalidate();
 
-        resp.sendRedirect(req.getContextPath() + "/");
+        resp.sendRedirect(LandingPageServlet.URL);
 
     }
 }

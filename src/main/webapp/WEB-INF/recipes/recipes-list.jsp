@@ -21,17 +21,16 @@
 
 <div class="container-md my-5 p-3">
 
-    <%--    ${!empty isLog ? '<p>You need to be logged!</p>' : ''}--%>
 
     <h1>Recipes List</h1>
 
-        <c:if test="${empty sessionScope.isLogged}">
+        <c:if test="${! empty sessionScope.loggedUser}">
             <a class="btn btn-success" role="button" href="/create-recipe">Create</a>
         </c:if>
 
-            <c:if test="${empty recipes}">
-                <p>No recipe found for : %${searchQurey}% </p>
-            </c:if>
+        <c:if test="${empty recipes}">
+            <p>No recipes found</p>
+        </c:if>
 
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
@@ -48,16 +47,23 @@
 
                         <h5 class="card-title"> ${recipe.name} </h5>
 
-                        <p>Category: ${recipe.category.getName()}</p>
-                        <p>Tags: <c:forEach items="${recipe.tags}" var="tag">${tag.getName()}, </c:forEach></p>
+                        <p>
+                            Category: ${recipe.category.getName()}<br>
+                            Tags: <c:forEach items="${recipe.tags}" var="tag">${tag.getName()}, </c:forEach><br>
 
-                        <p>Temps total : ${recipe.calculateTotalTime()} min.</p>
+                            Temps total : ${recipe.calculateTotalTime()} min.<br>
+                            <c:if test="${empty recipe.lastCookedDate}">Jamais cuisinée</c:if>
+                            <c:if test="${!empty recipe.lastCookedDate}">Cuisinée la dernière fois le: ${recipe.lastCookedDate}</c:if>
+                        </p>
 
                         <a class="btn btn-primary btn-sm"
-                           role="button" href="/edit-recipe?id=${recipe.id}">Edit</a>
+                           role="button" href="/detail-recipe?id=${recipe.id}">Details</a>
 
+                        <c:if test="${! empty sessionScope.loggedUser}">
                         <a class="btn btn-secondary btn-sm"
                            role="button" href="/delete-recipe?id=${recipe.id}">Delete</a>
+                        </c:if>
+
 
                     </div>
                 </div>

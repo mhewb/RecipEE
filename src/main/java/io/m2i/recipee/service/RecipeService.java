@@ -7,11 +7,7 @@ import io.m2i.recipee.model.Recipe;
 import io.m2i.recipee.model.Tag;
 import io.m2i.recipee.model.User;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeService {
@@ -44,13 +40,28 @@ public class RecipeService {
 
     public boolean updateRecipeById(Long id, String name, String ingredients, int preparationTime, String instructions, int cookingTime, Category category, List<Tag> tags) {
         Recipe recipe = recipeDAO.getById(id);
+
         recipe.setName(name);
+        recipe.setIngredients(ingredients);
+        recipe.setPreparationTime(preparationTime);
+        recipe.setInstructions(instructions);
+        recipe.setCookingTime(cookingTime);
+        recipe.setCategory(category);
+        recipe.setTags(tags);
+
         return recipeDAO.update(recipe);
     }
 
     public boolean deleteRecipeById(Long id) {
         Recipe recipe = recipeDAO.getById(id);
         return recipeDAO.delete(recipe);
+    }
+
+    public LocalDate getLastTimeRecipeCooked(User user, Recipe recipe) {
+        return recipeDAO.getLastTimeRecipeCooked(user, recipe);
+    }
+    public boolean updateLastTimeRecipeCooked(User user, Recipe recipe) {
+        return recipeDAO.updateLastTimeRecipeCooked(user, recipe);
     }
 
     public List<Recipe> searchRecipe(String query) {
