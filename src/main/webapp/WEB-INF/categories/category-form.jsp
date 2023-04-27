@@ -29,11 +29,11 @@
              value="${empty category.name ? '' : category.name }">
 
 
-      <c:if test="${empty update}">
+      <c:if test="${empty isEdit}">
       <button class="btn btn-primary my-3" type="submit">Create Category</button>
       </c:if>
 
-      <c:if test="${!empty update}">
+      <c:if test="${!empty isEdit}">
       <button class="btn btn-primary my-3" type="submit" name="id"
               value=${category.id} formaction="/edit-category?id=${category.id}">Edit</button>
 

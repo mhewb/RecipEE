@@ -11,16 +11,14 @@ create table if not exists Categories
         unique (name)
 );
 
-INSERT INTO Categories(name) VALUES ('STARTER'), ('MAIN'), ('DESSERT'), ('SNACK');
-
 create table if not exists Recipes
 (
     id              int auto_increment primary key,
-    name            varchar(100) not null,
+    name            varchar(250) not null,
     ingredients     text         not null,
-    preparationTime time         null,
+    preparationTime int          null,
     instructions    text         not null,
-    cookingTime     time         null,
+    cookingTime     int          null,
     idCategory      int          not null,
     constraint name
         unique (name),

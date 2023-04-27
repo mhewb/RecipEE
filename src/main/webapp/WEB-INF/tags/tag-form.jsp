@@ -29,11 +29,11 @@
              value="${empty tag.name ? '' : tag.name }">
 
 
-      <c:if test="${empty update}">
+      <c:if test="${empty isEdit}">
       <button class="btn btn-primary my-3" type="submit">Create Tag</button>
       </c:if>
 
-      <c:if test="${!empty update}">
+      <c:if test="${!empty isEdit}">
       <button class="btn btn-primary my-3" type="submit" name="id"
               value=${tag.id} formaction="/edit-tag?id=${tag.id}">Edit</button>
 

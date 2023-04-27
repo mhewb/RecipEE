@@ -7,14 +7,14 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-        <%-- TAGS--%>
+        <%-- Recipes--%>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Tags
+            Recipes
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/tags-list">Tags List</a></li>
-            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/create-tag">Create Tag</a></li>
+            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/recipes-list">Recipes List</a></li>
+            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/create-recipe">Create Recipe</a></li>
           </ul>
         </li>
 
@@ -29,9 +29,22 @@
           </ul>
         </li>
 
+        <%-- TAGS--%>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Tags
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/tags-list">Tags List</a></li>
+            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/create-tag">Create Tag</a></li>
+          </ul>
+        </li>
+
+
+
 
       </ul>
-∂
+
       <span class="navbar-text">
         ${empty username ? 'Not connected': username}
       </span>

@@ -1,6 +1,7 @@
 package io.m2i.recipee.dao;
 
 import io.m2i.recipee.ConnectionManager;
+import io.m2i.recipee.model.Recipe;
 import io.m2i.recipee.model.Tag;
 
 import java.sql.Connection;
@@ -15,6 +16,7 @@ public class TagJdbcDAO implements TagDAO {
     Connection con = ConnectionManager.getInstance();
 
     private Tag mapToTag(ResultSet rs) throws SQLException {
+
         Long id = rs.getLong("id");
         String name = rs.getString("name");
 
@@ -47,6 +49,7 @@ public class TagJdbcDAO implements TagDAO {
 
     }
 
+
     @Override
     public List<Tag> findAll() {
 
@@ -63,6 +66,30 @@ public class TagJdbcDAO implements TagDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException("Could not find Tags.", e);
+        }
+        return tagList;
+    }
+
+    @Override
+    public List<Tag> getTagsPerRecipeId(Long idRecipe) {
+
+        RecipeDAO recipeDAO = new RecipeJdbcDAO();
+        List<Tag> tagList = new ArrayList<>();
+        String sqlQuery = "SELECT t.name, rt.idRecipes, rt.idTags AS id  FROM RecipeTags rt INNER JOIN Tags t WHERE idRecipes = ?";
+
+        try (PreparedStatement pst = con.prepareStatement(sqlQuery)) {
+
+            pst.setLong(1, idRecipe);
+
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Tag tag = mapToTag(rs);
+                tagList.add(tag);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not find Tags for Recipe id=" + idRecipe, e);
         }
         return tagList;
     }
@@ -107,6 +134,7 @@ public class TagJdbcDAO implements TagDAO {
         }
         return tagFound;
     }
+
 
     @Override
     public boolean update(Tag entity) {

@@ -25,7 +25,7 @@ public class CategoryEditServlet extends HttpServlet {
         Category category = categoryService.getCategoryById(id);
 
         req.setAttribute("category", category);
-        req.setAttribute("update", "update");
+        req.setAttribute("isEdit", "isEdit");
 
         req.getRequestDispatcher(CategoryEditServlet.JSP).forward(req, resp);
 

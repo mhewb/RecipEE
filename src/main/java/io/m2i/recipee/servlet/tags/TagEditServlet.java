@@ -24,7 +24,7 @@ public class TagEditServlet extends HttpServlet {
         Tag tag = tagService.getTagById(id);
 
         req.setAttribute("tag", tag);
-        req.setAttribute("update", "update");
+        req.setAttribute("isEdit", "isEdit");
 
         req.getRequestDispatcher(TagEditServlet.JSP).forward(req, resp);
 
