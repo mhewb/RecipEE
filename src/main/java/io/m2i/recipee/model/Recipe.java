@@ -1,5 +1,7 @@
 package io.m2i.recipee.model;
 
+import io.m2i.recipee.api.dto.RecipeDTO;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -42,6 +44,22 @@ public class Recipe {
         this.category = category;
         this.tags = tags;
         this.lastCooked = lastCooked;
+    }
+
+    public RecipeDTO toDTO() {
+        RecipeDTO recipeDTO = new RecipeDTO();
+
+        recipeDTO.setId(this.id);
+        recipeDTO.setName(this.name);
+        recipeDTO.setIngredients(this.ingredients);
+        recipeDTO.setPreparationTime(this.preparationTime);
+        recipeDTO.setInstructions(this.instructions);
+        recipeDTO.setCookingTime(this.cookingTime);
+        recipeDTO.setCategory(this.category);
+        recipeDTO.setTags(this.tags);
+        recipeDTO.setLastCooked(this.lastCooked);
+
+        return recipeDTO;
     }
 
     // TODO: make attribute

@@ -148,7 +148,7 @@ public class RecipeJdbcDAO implements RecipeDAO {
         List<Recipe> recipeList = new ArrayList<>();
 
         String sqlQuery =
-                "SELECT r.id, r.name, r.ingredients, r.preparationTime, r.instructions, r.cookingTime, c.id FROM Recipes r INNER JOIN Categories c on r.idCategory = c.id WHERE c.id = ?;";
+                "SELECT r.id, r.name, r.ingredients, r.preparationTime, r.instructions, r.cookingTime, c.id AS idCategory FROM Recipes r INNER JOIN Categories c on r.idCategory = c.id WHERE c.id = ?;";
 
         try (PreparedStatement pst = con.prepareStatement(sqlQuery)) {
 
