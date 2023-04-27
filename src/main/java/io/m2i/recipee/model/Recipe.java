@@ -14,15 +14,12 @@ public class Recipe {
     private int cookingTime;
     private Category category;
     private List<Tag> tags;
-    private LocalDate lastCooked;
-
-    //TODO: Add creator ?
 
     public Recipe() {
     }
 
     public Recipe(Long id, String name, String ingredients, int preparationTime,
-                  String instructions, int cookingTime, Category category, List<Tag> tags, LocalDate lastCooked) {
+                  String instructions, int cookingTime, Category category, List<Tag> tags) {
         this.id = id;
         this.name = name;
         this.ingredients = ingredients;
@@ -31,11 +28,10 @@ public class Recipe {
         this.cookingTime = cookingTime;
         this.category = category;
         this.tags = tags;
-        this.lastCooked = lastCooked;
     }
 
     public Recipe(String name, String ingredients, int preparationTime, String instructions,
-                  int cookingTime, Category category, List<Tag> tags, LocalDate lastCooked) {
+                  int cookingTime, Category category, List<Tag> tags) {
         this.name = name;
         this.ingredients = ingredients;
         this.preparationTime = preparationTime;
@@ -43,7 +39,6 @@ public class Recipe {
         this.cookingTime = cookingTime;
         this.category = category;
         this.tags = tags;
-        this.lastCooked = lastCooked;
     }
 
     public RecipeDTO toDTO() {
@@ -57,7 +52,6 @@ public class Recipe {
         recipeDTO.setCookingTime(this.cookingTime);
         recipeDTO.setCategory(this.category);
         recipeDTO.setTags(this.tags);
-        recipeDTO.setLastCooked(this.lastCooked);
 
         return recipeDTO;
     }
@@ -131,11 +125,4 @@ public class Recipe {
         this.tags = tags;
     }
 
-    public LocalDate getLastCooked() {
-        return lastCooked;
-    }
-
-    public void setLastCooked(LocalDate lastCooked) {
-        this.lastCooked = lastCooked;
-    }
 }

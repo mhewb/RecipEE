@@ -16,9 +16,6 @@ public class RecipeDTO {
     private int cookingTime;
     private Category category;
     private List<Tag> tags;
-    private LocalDate lastCooked;
-
-    //TODO: Add creator ?
 
     public RecipeDTO() {
     }
@@ -85,13 +82,5 @@ public class RecipeDTO {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
-    }
-
-    public LocalDate getLastCooked() {
-        return lastCooked;
-    }
-
-    public void setLastCooked(LocalDate lastCooked) {
-        this.lastCooked = lastCooked;
     }
 }
